@@ -1,50 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Scrolling Word</title>
+  <title>Helm Packages</title>
   <style>
     body {
+      margin: 0;
+      padding: 0;
+      background-image: url('nature-background.jpg');
+      background-size: cover;
+      background-position: center;
       font-family: Arial, sans-serif;
+      text-align: center;
+      color: #fff;
     }
-    #container {
-      height: 300px;
-      overflow-y: scroll;
+    .container {
+      padding: 20px;
     }
-    .highlight {
-      background-color: yellow;
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
     }
-    .link {
-      margin-top: 20px;
+    a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #2196F3;
+      color: #fff;
+      text-decoration: none;
+      font-size: 20px;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    a:hover {
+      background-color: #0D47A1;
     }
   </style>
-  <script>
-    function scrollToWord() {
-      var container = document.getElementById('container');
-      var wordElement = document.getElementById('word');
-      container.scrollTop = wordElement.offsetTop;
-      wordElement.classList.add('highlight');
-    }
-  </script>
 </head>
 <body>
-  <h1>Scrolling Word Example</h1>
-  <div id="container">
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-    <p><span id="word">accusantium</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem <span id="word">doloremque</span> laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
-    <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+  <div class="container">
+    <h1>Helm Packages</h1>
+    <p>Explore the available Helm packages for your Kubernetes deployments.</p>
+    <a href="https://vivekbangare.github.io/helmcharts/index.yaml">View Index YAML</a>
   </div>
-  <div class="link">
-    <a href="#specific-page">Go to Specific Page</a>
-  </div>
-  <div id="specific-page">
-    <h2>Specific Page</h2>
-    <p>This is the specific page you linked to. You can add your content here.</p>
-  </div>
-  <script>
-    scrollToWord();
-  </script>
 </body>
 </html>
