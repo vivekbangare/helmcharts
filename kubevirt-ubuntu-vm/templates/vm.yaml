@@ -1,0 +1,52 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata:
+  name: { { .Release.Name } }
+  namespace: { { .Release.Namespace } }
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/name: { { .Release.Name } }
+      annotations:
+        ns.networkservicemesh.io: vl3-service-{{ required "Please provide slicename using parameter --set slicename=SLICENAME" .Values.slicename }}
+    spec:
+      domain:
+        cpu:
+          threads: { { .Values.resources.cpu.threads | default "1" } }
+          cores: { { .Values.resources.cpu.cores | default "1" } }
+          sockets: { { .Values.resources.cpu.sockets | default "1" } }
+        memory:
+          guest: { { .Values.resources.memory | default "1G" } }
+        devices:
+          autoattachPodInterface: true # true by default, explicitly setting for clarity
+          disks:
+            - name: bootdisk
+              disk:
+                bus: virtio
+            - name: cloud-init
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+      terminationGracePeriodSeconds: 0
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: bootdisk
+          containerDisk:
+            image: camelcasenotation/ubuntu1604-containerdisk:latest
+        - name: cloud-init
+          cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              #users: ubuntu
+              password: ubuntu
+              ssh_pwauth: True
+              chpasswd: { expire: False }
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userDataBase64: $(cat startup-script.sh | base64 -w0)

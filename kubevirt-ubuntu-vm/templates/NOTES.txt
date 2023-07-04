@@ -1,0 +1,4 @@
+export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ .Release.Name }}-svc )
+export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+echo ssh $NODE_IP -P $NODE_PORT
+echo ssh -i <insert private key > ubuntu@$NODE_IP

@@ -1,0 +1,5 @@
+apiVersion: v2
+name: kubevirt-ubuntu-vm
+description: Chart for kubevirt Ubuntu 16 - VirtualMachine 
+type: application
+version: 0.1.1

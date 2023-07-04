@@ -1,0 +1,6 @@
+apiVersion: v2
+name: efk-logging-bundle
+description: A Helm chart for efk stack logging bundle
+type: application
+version: 0.1.1
+appVersion: "0.1.0"

@@ -1,0 +1,18 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: "{{ .Release.Name }}-external"
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: elasticsearch
+spec:
+  selector:
+    app: elasticsearch
+  type: NodePort
+  ports:
+    - port: 9200
+      name: rest
+      nodePort: {{ .Values.elasticsearch.nodePort | default "32000"}}
+    - port: 9300
+      name: inter-node
+      

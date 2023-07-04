@@ -1,0 +1,43 @@
+{{ if .Values.client.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iperf-client
+  labels:
+    app: iperf-client
+  namespace: iperf
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iperf-client
+  template:
+    metadata:
+      labels:
+        app: iperf-client
+    spec:
+      imagePullSecrets:
+      - name: nexus-iperf
+      volumes:
+      - name: shared-volume
+        emptyDir: {}
+      containers:
+      - name: sidecar
+        image: nicolaka/netshoot
+        imagePullPolicy: IfNotPresent
+        command: [ "/bin/sleep", "3650d" ]
+        securityContext:
+          capabilities:
+            add: [ "NET_ADMIN" ]
+          allowPrivilegeEscalation: true
+          privileged: true
+        volumeMounts:
+        - name: shared-volume
+          mountPath: /log
+
+      - name: iperf
+        image: mlabbe/iperf
+        imagePullPolicy: Always
+        command: ["/bin/sleep", "3650d"]
+{{- end }}
+

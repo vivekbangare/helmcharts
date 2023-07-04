@@ -1,0 +1,7 @@
+clustername: ""
+
+elasticSearch:
+  hostPath: ""
+  port: ""
+
+provider: ""

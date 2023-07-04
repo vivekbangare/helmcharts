@@ -1,0 +1,6 @@
+elasticSearch:
+  hostPath: ""
+  port: ""
+  
+serviceType: ""
+nodePort: ""

@@ -1,0 +1,47 @@
+apiVersion: kubevirt.io/v1alpha3
+kind: VirtualMachine
+metadata:
+  name: ubuntu-with-iperf
+  namespace: default
+spec:
+  running: true
+  template:
+    metadata:
+      labels:
+        kubevirt.io/name: ubuntu-with-iperf
+      annotations:
+        ns.networkservicemesh.io: vl3-service-pvh
+    spec:
+      nodeSelector:
+        performance: high
+      domain:
+        cpu:
+          threads: 1
+          cores: 1
+          sockets: 1
+        memory:
+          guest: "1G"
+        devices:
+          autoattachPodInterface: true # true by default, explicitly setting for clarity
+          disks:
+            - name: bootdisk
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              disk:
+                bus: virtio
+          interfaces:
+            - name: default
+              masquerade: {}
+      terminationGracePeriodSeconds: 0
+      networks:
+        - name: default
+          pod: {}
+      volumes:
+        - name: bootdisk
+          containerDisk:
+            image: camelcasenotation/ubuntu1604-containerdisk:latest
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            secretRef:
+              name: my-vmi-secret

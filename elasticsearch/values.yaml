@@ -1,0 +1,3 @@
+elasticsearch:
+  storage: ""
+  nodePort: ""

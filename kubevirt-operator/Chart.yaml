@@ -1,0 +1,6 @@
+apiVersion: v2
+name: kubevirt-operator
+description: chart for kubevirt-operator
+type: application
+version: 0.1.0
+appVersion: "0.41.2"

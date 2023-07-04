@@ -1,0 +1,12 @@
+slicename: ""
+
+resources:
+  memory: "1G"
+  cpu:
+    threads: "1"
+    cores: "1"
+    sockets: "1"
+
+service:
+  type: NodePort
+  port: 22
