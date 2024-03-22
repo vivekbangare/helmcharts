@@ -1,0 +1,33 @@
+name: Helm Package Workflow
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Helm
+        uses: azure/setup-helm@v1
+
+      - name: Update Helm Repositories
+        run: |
+          helm repo update
+      
+      - name: Package Nginx Chart
+        run: |
+          helm package nginx -d packages/
+      
+      - name: Commit and Push Packages
+        run: |
+          git checkout -b packages
+          git add packages/*
+          git commit -m "Added Nginx Helm package"
+          helm repo index . --url https://vivekbangare.github.io/helmcharts/
+          git push origin packages
