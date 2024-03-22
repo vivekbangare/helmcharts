@@ -23,9 +23,9 @@ jobs:
       - name: Commit and Push Packages
         run: |
           git checkout -b packages
+          git config --global user.email "vivekbangare@gmail.com"
+          git config --global user.name "Vivek Bangare"
           git add packages/*
           git commit -m "Added Nginx Helm package"
           helm repo index . --url https://vivekbangare.github.io/helmcharts/
-          git config --global user.email "vivekbangare@gmail.com"
-          git config --global user.name "Vivek Bangare"
           git push origin packages
