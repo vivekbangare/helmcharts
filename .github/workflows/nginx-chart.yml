@@ -15,11 +15,7 @@ jobs:
 
       - name: Set Up Helm
         uses: azure/setup-helm@v1
-
-      - name: Update Helm Repositories
-        run: |
-          helm repo update
-      
+              
       - name: Package Nginx Chart
         run: |
           helm package nginx -d packages/
