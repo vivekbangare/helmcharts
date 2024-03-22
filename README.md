@@ -1,5 +1,5 @@
 # Helm Charts Repository
-This repository contains a collection of Helm charts for deploying applications and services in a Kubernetes cluster. Helm is a package manager for Kubernetes that simplifies the deployment and management of applications.
+This repository contains a collection of Helm charts for deploying applications and services in a Kubernetes cluster. Helm is a package manager for Kubernetes that simplifies the deployment and management of applications..
 
 ## Usage
 
