@@ -15,9 +15,6 @@ jobs:
 
       - name: Set Up Helm
         uses: azure/setup-helm@v1
-      
-      - name: Authenticate with GitHub
-        run: echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
 
       - name: Package Nginx Chart
         run: |
@@ -31,4 +28,7 @@ jobs:
           git add packages/*
           git commit -m "Added Nginx Helm package"
           helm repo index . --url https://vivekbangare.github.io/helmcharts/
-          git push origin packages
+
+      - name: Push changes to repository
+        run: git push https://vivekbangare:${{ secrets.GH_TOKEN }}@github.com/vivekbangare/helmcharts.git packages
+        
