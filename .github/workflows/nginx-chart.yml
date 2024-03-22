@@ -15,7 +15,7 @@ jobs:
 
       - name: Set Up Helm
         uses: azure/setup-helm@v1
-              
+
       - name: Package Nginx Chart
         run: |
           helm package nginx -d packages/
@@ -26,4 +26,6 @@ jobs:
           git add packages/*
           git commit -m "Added Nginx Helm package"
           helm repo index . --url https://vivekbangare.github.io/helmcharts/
+          git config --global user.email "vivekbangare@gmail.com"
+          git config --global user.name "Vivek Bangare"
           git push origin packages
