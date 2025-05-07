@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   package:
@@ -12,23 +13,34 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set Up Helm
         uses: azure/setup-helm@v1
 
       - name: Package Voting App Chart
         run: |
+          mkdir -p packages
           helm package voting-app -d packages/
-      
-      - name: Commit and Push Packages
+
+      - name: Switch to packages branch
         run: |
-          git checkout -b packages
+          git fetch origin packages || true
+          git checkout packages || git checkout -b packages
+          git pull origin packages || true
+          cp packages/*.tgz ./
+          helm repo index . --url https://vivekbangare.github.io/helmcharts/packages/
+          mkdir -p packages
+          mv *.tgz packages/
+          mv index.yaml packages/
+
+      - name: Commit and Push Packages
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: |
           git config --global user.email "actions@gmail.com"
           git config --global user.name "GitHub Actions"
-          git add packages/*
-          git commit -m "Added Voting Helm package"
-          helm repo index . --url https://vivekbangare.github.io/helmcharts/
-
-      - name: Push changes to repository
-        run: git push https://vivekbangare:${{ secrets.GH_TOKEN }}@github.com/vivekbangare/helmcharts.git packages
-        
+          git add packages/
+          git commit -m "Added/Updated Voting Helm package" || echo "No changes to commit"
+          git push https://vivekbangare:${GH_TOKEN}@github.com/vivekbangare/helmcharts.git packages
