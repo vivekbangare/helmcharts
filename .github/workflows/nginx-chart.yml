@@ -43,4 +43,4 @@ jobs:
           git config --global user.name "GitHub Actions"
           git add packages/
           git commit -m "Added/Updated Voting Helm package" || echo "No changes to commit"
-          git push https://vivekbangare:${GH_TOKEN}@github.com/vivekbangare/helmcharts.git packages
+          git push https://x-access-token:${GH_TOKEN}@github.com/vivekbangare/helmcharts.git packages
