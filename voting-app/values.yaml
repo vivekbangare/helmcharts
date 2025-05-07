@@ -1,0 +1,43 @@
+# Database Configuration
+db:
+  image: postgres:15-alpine
+  replicaCount: 1
+  postgresUser: postgres
+  postgresPassword: postgres
+
+# Redis Configuration
+redis:
+  image: redis:alpine
+  replicaCount: 1
+
+# Result Service Configuration
+result:
+  image: dockersamples/examplevotingapp_result
+  replicaCount: 1
+  nodePort: 31001
+  enabled: true
+  serviceName: result
+  servicePort: 8080
+
+# Vote Service Configuration
+vote:
+  image: dockersamples/examplevotingapp_vote
+  replicaCount: 1
+  nodePort: 31000
+  enabled: true
+  serviceName: vote
+  servicePort: 8080
+
+# Worker Service Configuration
+worker:
+  image: dockersamples/examplevotingapp_worker
+  replicaCount: 1
+  enabled: true
+  serviceName: worker
+  servicePort: 5000
+
+# Ingress Configuration
+ingress:
+  host: rancher-premium-stage-infrastructure.centric-cloud.com
+  clusterIssuer: letsencrypt-prod
+  tlsSecret: tls-voting-app-ingress
