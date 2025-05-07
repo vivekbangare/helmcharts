@@ -16,9 +16,9 @@ jobs:
       - name: Set Up Helm
         uses: azure/setup-helm@v1
 
-      - name: Package Nginx Chart
+      - name: Package Voting App Chart
         run: |
-          helm package nginx -d packages/
+          helm package voting-app -d packages/
       
       - name: Commit and Push Packages
         run: |
@@ -26,7 +26,7 @@ jobs:
           git config --global user.email "actions@gmail.com"
           git config --global user.name "GitHub Actions"
           git add packages/*
-          git commit -m "Added Nginx Helm package"
+          git commit -m "Added Voting Helm package"
           helm repo index . --url https://vivekbangare.github.io/helmcharts/
 
       - name: Push changes to repository
